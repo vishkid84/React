@@ -31,21 +31,11 @@ class App extends Component{
             {name: 'Vis', age: 36},
             {name: 'Dhanz', age: 35},
             {name: 'Asher', age: 3}
-        ]
+        ],
+        showPersons: false
     }
 
-    switchNameHandler = (newName) => {
-        // alert('Working')
-        // DO NOT DO THIS: this.state.persons[0].name = 'Vishal';
-        this.setState({
-            persons: [
-                {name: newName, age: 36},
-                {name: 'Dhanz', age: 35},
-                {name: 'Asher', age: 3.5}
-            ]
-        })
-    }
-
+   
     nameChangedHandler = (event) => {
         this.setState({
             persons: [
@@ -54,6 +44,17 @@ class App extends Component{
                 {name: 'Asher', age: 3}
             ]
         })
+    }
+
+    togglePersonHandler = () => {
+        const doesShow = this.state.showPersons;
+        this.setState({showPersons: !doesShow});
+    }
+
+    deletePersonHander = (personIndex) => {
+        const persons = this.state.persons;
+        persons.splice(personIndex, 1);
+        this.setState({persons: persons});
     }
 
     render(){
@@ -65,13 +66,26 @@ class App extends Component{
             padding: '8px'
         }
 
+        let persons = null;
+
+        if(this.state.showPersons){
+            persons = (
+                <div>
+                    {this.state.persons.map((person, index) => {
+                        return <Person 
+                            click = { () => this.deletePersonHander(index)}
+                            name = {person.name}
+                            age = {person.age} />
+                    })}
+                </div>
+            )
+        }
+
         return (
             <div className="App">
-            <h1>I am a new react app</h1>
-            <button style={style} onClick={() => this.switchNameHandler('Vishal')}>Switch name</button>
-            <Person name={this.state.persons[0].name} age={this.state.persons[0].age} click={this.switchNameHandler.bind(this, 'Vishal Raju')}></Person>
-            <Person name={this.state.persons[1].name} age={this.state.persons[1].age} changed={this.nameChangedHandler}>My hobbies: Racing</Person>
-            <Person name={this.state.persons[2].name} age={this.state.persons[2].age}></Person>
+                <h1>I am a new react app</h1>
+                <button style={style} onClick={this.togglePersonHandler}>Toggle persons</button>
+                {persons} 
             </div>
         );
     }
@@ -83,3 +97,21 @@ export default App;
 /*      <Person name="Vis" age="36"></Person>
         <Person name="Dhanz" age="35">My hobbies: Racing</Person>
         <Person name="Asher" age="3"></Person> */
+
+// Without dynamically outputting list by mapping, hard coded would be like below
+// <Person name={this.state.persons[0].name} age={this.state.persons[0].age} click={this.switchNameHandler.bind(this, 'Vishal Raju')}></Person>
+// <Person name={this.state.persons[1].name} age={this.state.persons[1].age} changed={this.nameChangedHandler}>My hobbies: Racing</Person>
+// <Person name={this.state.persons[2].name} age={this.state.persons[2].age}></Person>
+
+
+//  switchNameHandler = (newName) => {
+//         // alert('Working')
+//         // DO NOT DO THIS: this.state.persons[0].name = 'Vishal';
+//         this.setState({
+//             persons: [
+//                 {name: newName, age: 36},
+//                 {name: 'Dhanz', age: 35},
+//                 {name: 'Asher', age: 3.5}
+//             ]
+//         })
+//     }

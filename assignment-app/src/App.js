@@ -30,6 +30,15 @@ class App extends Component{
         })
     }
 
+    hobbyChangedHandlerTwo = (event) => {
+        this.setState({
+            userOutputs: [
+                {name: 'Vishal', hobby: 'watching movies'},
+                {name: 'Dhanya', hobby: event.target.value}
+            ]
+        })
+    }
+
     render(){
 
         return (
@@ -40,7 +49,7 @@ class App extends Component{
                 <UserInput change={this.hobbyChangedHandler} hobby={this.state.userOutputs[0].hobby}></UserInput>
                 <hr></hr>
                 <UserOutput name={this.state.userOutputs[1].name} hobby={this.state.userOutputs[1].hobby} >Dhanya's paragraph</UserOutput>
-                <UserInput change={this.hobbyChangedHandler} hobby={this.state.userOutputs[1].hobby}></UserInput>
+                <UserInput change={this.hobbyChangedHandlerTwo} hobby={this.state.userOutputs[1].hobby}></UserInput>
             </div>
         )
     }
