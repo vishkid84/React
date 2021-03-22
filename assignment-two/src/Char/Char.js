@@ -3,7 +3,6 @@ import React from 'react';
 const charComponent = (props) => {
 
     const charStyle = {
-            color: 'red',
             display: 'inline-block',
             padding: '16px',
             textAlign: 'center',
@@ -12,12 +11,8 @@ const charComponent = (props) => {
         }
 
     return (
-        <div className="Char">
-            <ul>
-                {props.split.split('').map((char, index) => {
-                return <li style={charStyle} key={index}>{char}</li>
-                })}
-            </ul>
+        <div className="Char" style={charStyle} onClick={props.clicked}>
+                {props.character}
         </div>
     )
 }
