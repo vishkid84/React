@@ -72,10 +72,15 @@ class App extends Component{
     render(){
 
         const style = {
-            backgroundColor: 'white',
-            border: '1px solid blue',
-            color: 'blue',
-            padding: '8px'
+            background: 'green',
+            border: '1px solid white',
+            color: 'white',
+            padding: '8px',
+            cursor: 'pointer',
+            ':hover': {
+                background: 'lightgreen',
+                color: 'black'
+            }
         }
 
         let persons = null;
@@ -93,11 +98,25 @@ class App extends Component{
                     })}
                 </div>
             )
+            style.background = 'red';
+            style[':hover'] = {
+                background: 'lightred',
+                color: 'black'
+            }
+        }
+
+        let classes = []
+
+        if(this.state.persons.length <= 2){
+            classes.push('red', 'bold');
+        }else{
+            classes.push('green', 'bold')
         }
 
         return (
             <div className="App">
                 <h1>I am a new react app</h1>
+                <p className={classes.join(' ')}>Click the button below to see the {this.state.persons.length} items </p>
                 <button style={style} onClick={this.togglePersonHandler}>Toggle persons</button>
                 {persons} 
             </div>
